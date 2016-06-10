@@ -27,7 +27,7 @@ public class TaskService {
 	 */
 	@GET
 	public String read()  {
-		return "Hello World";
+		return "test new build";
 	}
 
 
