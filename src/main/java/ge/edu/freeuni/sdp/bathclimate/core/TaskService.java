@@ -5,8 +5,8 @@ import javax.ws.rs.core.*;
 
 
 @Path("/bathclimate")
-//@Consumes( { MediaType.APPLICATION_JSON})
-//@Produces( { MediaType.APPLICATION_JSON})
+@Consumes( { MediaType.APPLICATION_JSON})
+@Produces( { MediaType.APPLICATION_JSON})
 public class TaskService {
 
 	/*
