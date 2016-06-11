@@ -72,7 +72,6 @@ Returns true if ventilation is turn on in bath, false - otherwise.
                 "turnOn": true
             }
             
-            
 ## turn ventilation [/turn_vent/{on_off}/house/{house_id}/sensor/{sensor_id}]
 
 ### Changes ventilation state [PUT]
@@ -80,10 +79,15 @@ Returns true if ventilation is turn on in bath, false - otherwise.
 Turns on ventilation if it is off and vice-versa.
 
 + Parameters
+    + on_off (boolean) - according to turn on or off ventilation.
     + house_id (number) - ID of house
     + sensor_id (number) - ID of sensor in house
 
-+ Parameters 
-    + on_off (boolean) - according to turn on or off ventilation.
-
 + Response 200 (applicaion/json)
+
++ Response 503 (application/json)
+    + Body
+    
+            {
+                "reason": "Hardware problem!"
+            }
