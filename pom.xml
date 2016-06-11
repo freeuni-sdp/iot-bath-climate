@@ -3,16 +3,16 @@
 
 	<modelVersion>4.0.0</modelVersion>
 
-	<groupId>ge.edu.freeuni.sdp.bath.climate</groupId>
-	<artifactId>bath-climate</artifactId>
+	<groupId>ge.edu.freeuni.sdp.iot.service.bath_climate</groupId>
+	<artifactId>bath_climate</artifactId>
 	<packaging>war</packaging>
 	<version>1.0</version>
-	<name>bath-climate</name>
+	<name>bath_climate</name>
 
 	<build>
 		<testSourceDirectory>test</testSourceDirectory>
 
-		<finalName>bath-climate</finalName>
+		<finalName>bath_climate</finalName>
 		<plugins>
 
 			<plugin>
