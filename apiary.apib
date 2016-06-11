@@ -17,3 +17,57 @@ allows customers to see if service is running
             "test": "bathclimate"
 
         }
+ 
+ 
+## GetCurrentHumidity [/currentHumidity]
+
+### Retrive a current humidity in bath [GET]
+
+Returns a current humidity value in bath.
+
++ Response 200 (application/json)
+    + Body
+
+            {
+                "humidity": 21.5
+            }
+        
+        
+## IsLightTurnOn [/isLightTurnOn]
+
+### Finds out is Light turn on or off in bath [GET]
+
+Returns true if light is turn on in bath, false - otherwise.
+
++ Response 200 (application/json)
+    + Body
+
+            {
+                "turnOn": true
+            }
+            
+            
+## IsVentilationTurnOn [/isVentTurnOn]
+
+### Finds out is ventilation on or off in bath [GET]
+
+Returns true if ventilation is turn on in bath, false - otherwise.
+
++ Response 200 (application/json)
+    + Body
+
+            {
+                "turnOn": true
+            }
+            
+            
+## TurnVentilation [/turnVent/{on_off}]
+
+### Changes ventilation state [PUT]
+
+Turns on ventilation if it is off and vice-versa.
+
++ Parameters 
+    + on_off (boolean) - according to turn on or off ventilation.
+
++ Response 200 (applicaion/json)
