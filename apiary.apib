@@ -72,6 +72,63 @@ Returns true if ventilation is turn on in bath, false - otherwise.
                 "turnOn": true
             }
             
+
+## light sensors collection [/light_sensors_states/house/{house_id}]
+
+### Finds out light sensors state [GET]
+
+Returns light sensors states for the given house.
+
++ Parameters
+    + house_id (int) - ID of house
+    
++ Response 200 (application/json)
+    + Body
+        
+            {
+                "sensors":  [
+                                {
+                                    "sensor_1": true
+                                },
+                                {
+                                    "sensor_2": false
+                                }
+                            ]
+            }
+
+
+## light sensors collection [/light_sensors_states]
+
+### Finds out light sensors states [GET]
+
+Returns all light sensor state from every house.
+
++ Response 200 (applicaion/json)
+    + Body
+    
+            {
+                "sensors":  [
+                                {
+                                    "house_1":  [
+                                                    {
+                                                        "sensor_1": true
+                                                    },
+                                                    {
+                                                        "sensor_2": false
+                                                    }
+                                                ]
+                                },
+                                {
+                                    "house_2":  [
+                                                    {
+                                                        "sensor_1": false
+                                                    }
+                                                ]
+                                }
+                            ]
+            }
+
+
 ## turn ventilation [/turn_vent/{on_off}/house/{house_id}/sensor/{sensor_id}]
 
 ### Changes ventilation state [PUT]
