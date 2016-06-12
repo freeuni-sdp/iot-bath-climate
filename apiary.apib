@@ -19,17 +19,9 @@ allows customers to see if service is running
         }
  
  
-## Get humidity collection [GET/houses/{house_id}/humidity]
+## Get humidity collection [GET/houses/{house_id}/humidity/count/{count_id}/order/{order_id}]
 
 Returns a current humidity value in bath.
-
-+ Request (application/json)
-    + Body
-            
-            {
-                "count": 10
-                "order": desc
-            }
 
 + Parameters
     + house_id  (number) - ID of house
@@ -65,41 +57,13 @@ Returns a current humidity value in bath.
         
 ## Is light turn on [GET/house/{house_id}/light]
 
-Returns true if light is turn on in bath, false - otherwise.
+Returns 204 if light is turn on in bath, 404 - otherwise.
 
 + Parameters
     + house_id (number) - ID of house
     
 + Response 204 
 + Response 404
-
-
-## Light sensors collection [GET/light_sensors_states/house/{house_id}]
-
-Returns light sensors states for the given house.
-
-+ Parameters
-    + house_id (number) - ID of house
-    
-+ Response 200 (application/json)
-    + Body
-        
-            {
-                "rooms":    [  
-                                {
-                                    "is_light_on": true,
-                                    "light_switch_time": "2016-06-11T22:11:45.513Z"
-                                },
-                                {
-                                    "is_light_on": false,
-                                    "light_switch_time": "2016-06-11T22:14:51.073Z"
-                                },
-                                {
-                                    "is_light_on": false,
-                                    "light_switch_time": "2016-06-11T22:15:07.220Z"
-                                }
-                            ]
-            }
 
 
 ## Light sensors collection [GET/light_sensors_states]
@@ -114,45 +78,15 @@ Returns all light sensor state from every house.
                     [   
                         {
                             "house_id": "1",
-                            "rooms":
-                                [  
-                                    {
-                                        "is_light_on": "true",
-                                        "light_switch_time": "2016-06-11T22:13:16.673Z"
-                                    },
-                                    {
-                                        "is_light_on": "false",
-                                        "light_switch_time": "2016-06-11T22:10:53.490Z"
-                                    }
-                                ]
+                            "is_light_on": "true"
                         },
                         {
                             "house_id": "2",
-                            "rooms":
-                                [  
-                                    {
-                                        "is_light_on": "false",
-                                        "light_switch_time": "2016-06-11T22:25:07.224Z"
-                                    },
-                                    {
-                                        "is_light_on": "true",
-                                        "light_switch_time": "2016-06-11T22:45:00.056Z"
-                                    },
-                                    {
-                                        "is_light_on": "false",
-                                        "light_switch_time": "2016-06-11T22:00:59.304Z"
-                                    }
-                                ]
+                            "is_light_on": "false"
                         },
                         {
                             "house_id": "3",
-                            "rooms":
-                                [
-                                    {
-                                        "is_light_on": "true",
-                                        "light_switch_time": "2016-06-11T22:15:07.220Z"
-                                    }
-                                ]    
+                            "is_light_on": "true"
                         }    
                     ]
             }
@@ -178,19 +112,12 @@ Turns on ventilation if it is off.
 
 + Response 200
 
-+ Response 503 (application/json)
-    + Body
-    
-            {
-                "reason": "Hardware problem!"
-            }
++ Response 404
 
 
 ## Turn off ventilation [DELETE/houses/{house_id}/vent]
 
 Turns off ventilation if it is on.
-
-+ Response 200
 
 + Parameters
     + house_id  (number)  - ID of house
