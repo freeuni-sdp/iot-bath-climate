@@ -19,12 +19,14 @@ allows customers to see if service is running
         }
  
  
-## Get humidity collection [GET/houses/{house_id}/humidity/count/{count_id}/order/{order_id}]
+## Get humidity collection [GET/houses/{house_id}/humidity?count={count}&order={order}]
 
 Returns a current humidity value in bath.
 
 + Parameters
     + house_id  (number) - ID of house
+    + count     (number) - quantity of records
+    + order     (number) - increase or decrease order
 
     
 + response 200 (application/json)
