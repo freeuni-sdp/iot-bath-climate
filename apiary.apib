@@ -19,36 +19,22 @@ allows customers to see if service is running
         }
  
  
-## Get current humidity [/current_humidity/houses/{house_id}/rooms/{room_id}]
-
-### Retrieve a current humidity in bath [GET]
+## Get humidity collection [GET/houses/{house_id}/humidity]
 
 Returns a current humidity value in bath.
 
-+ Parameters
-    + house_id  (number) - ID of house
-    + room_id   (number) - ID of bath in house
-
-+ Response 200 (application/json)
++ Request (application/json)
     + Body
-
+            
             {
-                "humidity": 21.5,
-                "measurement_time": "2016-06-11T14:25:43.122Z"
+                "count": 10
+                "order": desc
             }
 
-## Recent measurement collection [/measurements/{quantity}/houses/{house_id}/rooms/{room_id}]
-
-### Retrieve specified quantity of humidity [GET]
-
-Returns specific number of most recent measurements 
-sorted in descending order in respect to time.
-
 + Parameters
-    + quantity  (number) - count of requested measurements
     + house_id  (number) - ID of house
-    + room_id   (number) - ID of bath in house 
 
+    
 + response 200 (application/json)
     + Body
             
@@ -77,28 +63,18 @@ sorted in descending order in respect to time.
             }
 
         
-## Is light turn on [/is_light_turn_on/house/{house_id}/room/{room_id}]
-
-### Finds out is Light turn on or off in bath [GET]
+## Is light turn on [GET/house/{house_id}/light]
 
 Returns true if light is turn on in bath, false - otherwise.
 
 + Parameters
     + house_id (number) - ID of house
-    + room_id  (number) - ID of bath in house
     
-+ Response 200 (application/json)
-    + Body
++ Response 204 
++ Response 404
 
-            {
-                "is_light_on": true,
-                "light_switch_time": "2016-06-11T22:13:06.460Z"
-            }
-            
-            
-## Light sensors collection [/light_sensors_states/house/{house_id}]
 
-### Finds out light sensors states [GET]
+## Light sensors collection [GET/light_sensors_states/house/{house_id}]
 
 Returns light sensors states for the given house.
 
@@ -126,9 +102,7 @@ Returns light sensors states for the given house.
             }
 
 
-## Light sensors collection [/light_sensors_states]
-
-### Finds out light sensors states [GET]
+## Light sensors collection [GET/light_sensors_states]
 
 Returns all light sensor state from every house.
 
@@ -184,36 +158,25 @@ Returns all light sensor state from every house.
             }
 
 
-## Is ventilation turn on [/is_vent_turn_on/houses/{house_id}/bath_vent/{bath_vent_id}]
-
-### Finds out is ventilation on or off in bath [GET]
+## Is ventilation turn on [GET/houses/{house_id}/vent]
 
 Returns true if ventilation is turn on in bath, false - otherwise.
 
 + Parameters
     + house_id      (number) - ID of house
-    + bath_vent_id  (number) - ID of sensor in house
 
-+ Response 200 (application/json)
-    + Body
-
-            {
-                "turn_on": true
-            }
++ Response 204
++ Response 404
 
 
-## Turn ventilation [/turn_vent/{on_off}/houses/{house_id}/bath_vent/{bath_vent_id}]
+## Turn on ventilation [PUT/houses/{house_id}/vent]
 
-### Changes ventilation state [PUT]
-
-Turns on ventilation if it is off and vice-versa.
+Turns on ventilation if it is off.
 
 + Parameters
-    + on_off    (boolean) - according to turn on or off ventilation.
     + house_id  (number)  - ID of house
-    + vent_id   (number)  - ID of sensor in house
 
-+ Response 200 (applicaion/json)
++ Response 200
 
 + Response 503 (application/json)
     + Body
@@ -221,3 +184,15 @@ Turns on ventilation if it is off and vice-versa.
             {
                 "reason": "Hardware problem!"
             }
+
+
+## Turn off light [DELETE/houses/{house_id}/vent]
+
+Turns off ventilation if it is on.
+
++ Response 200
+
++ Parameters
+    + house_id  (number)  - ID of house
+    
++ Response 200
