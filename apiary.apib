@@ -19,7 +19,7 @@ allows customers to see if service is running
         }
  
  
-## get current humidity [/current_humidity/houses/{house_id}/rooms/{room_id}]
+## Get current humidity [/current_humidity/houses/{house_id}/rooms/{room_id}]
 
 ### Retrieve a current humidity in bath [GET]
 
@@ -77,7 +77,7 @@ sorted in descending order in respect to time.
             }
 
         
-## is light turn on [/is_light_turn_on/house/{house_id}/sensor/{sensor_id}]
+## Is light turn on [/is_light_turn_on/house/{house_id}/room/{room_id}]
 
 ### Finds out is Light turn on or off in bath [GET]
 
@@ -85,19 +85,18 @@ Returns true if light is turn on in bath, false - otherwise.
 
 + Parameters
     + house_id (number) - ID of house
-    + sensor_id (number) - ID of sensor in house
+    + room_id  (number) - ID of bath in house
     
 + Response 200 (application/json)
     + Body
 
             {
-                "turnOn": true
+                "is_light_on": true,
+                "light_switch_time": "2016-06-11T22:13:06.460Z"
             }
             
             
-            
-
-## light sensors collection [/light_sensors_states/house/{house_id}]
+## Light sensors collection [/light_sensors_states/house/{house_id}]
 
 ### Finds out light sensors states [GET]
 
@@ -110,18 +109,24 @@ Returns light sensors states for the given house.
     + Body
         
             {
-                "sensors":  [
+                "rooms":    [  
                                 {
-                                    "sensor_1": true
+                                    "is_light_on": true,
+                                    "light_switch_time": "2016-06-11T22:11:45.513Z"
                                 },
                                 {
-                                    "sensor_2": false
+                                    "is_light_on": false,
+                                    "light_switch_time": "2016-06-11T22:14:51.073Z"
+                                },
+                                {
+                                    "is_light_on": false,
+                                    "light_switch_time": "2016-06-11T22:15:07.220Z"
                                 }
                             ]
             }
 
 
-## light sensors collection [/light_sensors_states]
+## Light sensors collection [/light_sensors_states]
 
 ### Finds out light sensors states [GET]
 
@@ -130,30 +135,56 @@ Returns all light sensor state from every house.
 + Response 200 (applicaion/json)
     + Body
     
-            {
-                "sensors":  [
-                                {
-                                    "house_1":  [
-                                                    {
-                                                        "sensor_1": true
-                                                    },
-                                                    {
-                                                        "sensor_2": false
-                                                    }
-                                                ]
-                                },
-                                {
-                                    "house_2":  [
-                                                    {
-                                                        "sensor_1": false
-                                                    }
-                                                ]
-                                }
-                            ]
+            {   
+                "houses":
+                    [   
+                        {
+                            "house_id": "1",
+                            "rooms":
+                                [  
+                                    {
+                                        "is_light_on": "true",
+                                        "light_switch_time": "2016-06-11T22:13:16.673Z"
+                                    },
+                                    {
+                                        "is_light_on": "false",
+                                        "light_switch_time": "2016-06-11T22:10:53.490Z"
+                                    }
+                                ]
+                        },
+                        {
+                            "house_id": "2",
+                            "rooms":
+                                [  
+                                    {
+                                        "is_light_on": "false",
+                                        "light_switch_time": "2016-06-11T22:25:07.224Z"
+                                    },
+                                    {
+                                        "is_light_on": "true",
+                                        "light_switch_time": "2016-06-11T22:45:00.056Z"
+                                    },
+                                    {
+                                        "is_light_on": "false",
+                                        "light_switch_time": "2016-06-11T22:00:59.304Z"
+                                    }
+                                ]
+                        },
+                        {
+                            "house_id": "3",
+                            "rooms":
+                                [
+                                    {
+                                        "is_light_on": "true",
+                                        "light_switch_time": "2016-06-11T22:15:07.220Z"
+                                    }
+                                ]    
+                        }    
+                    ]
             }
 
 
-## is ventilation turn on [/is_vent_turn_on/houses/{house_id}/bath_vent/{bath_vent_id}]
+## Is ventilation turn on [/is_vent_turn_on/houses/{house_id}/bath_vent/{bath_vent_id}]
 
 ### Finds out is ventilation on or off in bath [GET]
 
