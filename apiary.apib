@@ -19,24 +19,63 @@ allows customers to see if service is running
         }
  
  
-## get current humidity [/current_humidity/house/{house_id}/sensor/{sensor_id}]
+## get current humidity [/current_humidity/houses/{house_id}/rooms/{room_id}]
 
-### Retrive a current humidity in bath [GET]
+### Retrieve a current humidity in bath [GET]
 
 Returns a current humidity value in bath.
 
 + Parameters
-    + house_id (number) - ID of house
-    + sensor_id (number) - ID of sensor in house
+    + house_id  (number) - ID of house
+    + room_id   (number) - ID of bath in house
 
 + Response 200 (application/json)
     + Body
 
             {
-                "humidity": 21.5
+                "humidity": 21.5,
                 "measurement_time": "2016-06-11T14:25:43.122Z"
             }
-        
+
+## Recent measurement collection [/measurements/{quantity}/houses/{house_id}/rooms/{room_id}]
+
+### Retrieve specified quantity of humidity [GET]
+
+Returns specific number of most recent measurements 
+sorted in descending order in respect to time.
+
++ Parameters
+    + quantity  (number) - count of requested measurements
+    + house_id  (number) - ID of house
+    + room_id   (number) - ID of bath in house 
+
++ response 200 (application/json)
+    + Body
+            
+            {
+                "measurements": [
+                                    {
+                                        "humidity": 50.12,
+                                        "measurement_time": "2016-06-11T14:25:43.122Z"
+                                    },
+                                    {
+                                        "humidity": 54.16,
+                                        "measurement_time": "2016-06-11T14:24:41.432Z"
+                                    },
+                                    {
+                                        "humidity": 63.52,
+                                        "measurement_time": "2016-06-11T14:23:41.223Z"
+                                    }
+                                ]
+            }
+
++ Response 409 (application/json)
+    + Body
+            
+            {
+                "max_measurements": 100
+            }
+
         
 ## is light turn on [/is_light_turn_on/house/{house_id}/sensor/{sensor_id}]
 
@@ -56,32 +95,16 @@ Returns true if light is turn on in bath, false - otherwise.
             }
             
             
-## is ventilation turn on [/is_vent_turn_on/house/{house_id}/sensor/{sensor_id}]
-
-### Finds out is ventilation on or off in bath [GET]
-
-Returns true if ventilation is turn on in bath, false - otherwise.
-
-+ Parameters
-    + house_id (number) - ID of house
-    + sensor_id (number) - ID of sensor in house
-
-+ Response 200 (application/json)
-    + Body
-
-            {
-                "turnOn": true
-            }
             
 
 ## light sensors collection [/light_sensors_states/house/{house_id}]
 
-### Finds out light sensors state [GET]
+### Finds out light sensors states [GET]
 
 Returns light sensors states for the given house.
 
 + Parameters
-    + house_id (int) - ID of house
+    + house_id (number) - ID of house
     
 + Response 200 (application/json)
     + Body
@@ -130,16 +153,34 @@ Returns all light sensor state from every house.
             }
 
 
-## turn ventilation [/turn_vent/{on_off}/house/{house_id}/sensor/{sensor_id}]
+## is ventilation turn on [/is_vent_turn_on/houses/{house_id}/bath_vent/{bath_vent_id}]
+
+### Finds out is ventilation on or off in bath [GET]
+
+Returns true if ventilation is turn on in bath, false - otherwise.
+
++ Parameters
+    + house_id      (number) - ID of house
+    + bath_vent_id  (number) - ID of sensor in house
+
++ Response 200 (application/json)
+    + Body
+
+            {
+                "turn_on": true
+            }
+
+
+## turn ventilation [/turn_vent/{on_off}/houses/{house_id}/bath_vent/{bath_vent_id}]
 
 ### Changes ventilation state [PUT]
 
 Turns on ventilation if it is off and vice-versa.
 
 + Parameters
-    + on_off (boolean) - according to turn on or off ventilation.
-    + house_id (number) - ID of house
-    + sensor_id (number) - ID of sensor in house
+    + on_off    (boolean) - according to turn on or off ventilation.
+    + house_id  (number)  - ID of house
+    + vent_id   (number)  - ID of sensor in house
 
 + Response 200 (applicaion/json)
 
