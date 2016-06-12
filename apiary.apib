@@ -160,7 +160,7 @@ Returns all light sensor state from every house.
 
 ## Is ventilation turn on [GET/houses/{house_id}/vent]
 
-Returns true if ventilation is turn on in bath, false - otherwise.
+Returns status 200 if ventilation is turn on in bath, 404 - otherwise.
 
 + Parameters
     + house_id      (number) - ID of house
@@ -186,7 +186,7 @@ Turns on ventilation if it is off.
             }
 
 
-## Turn off light [DELETE/houses/{house_id}/vent]
+## Turn off ventilation [DELETE/houses/{house_id}/vent]
 
 Turns off ventilation if it is on.
 
