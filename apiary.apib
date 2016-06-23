@@ -60,13 +60,17 @@ ex: GET/houses/1/humidity?count=10&order=desc
         
 ## Is light turn on [GET/house/{house_id}/light]
 
-Returns 204 if light is turn on in bath, 404 - otherwise.
+Returns specific json about light turns on in bath.
 
 + Parameters
     + house_id (number) - ID of house
     
-+ Response 204 
-+ Response 404
++ Response 200
+    + Body
+        
+            {
+                "state_on": true
+            }
 
 
 ## Light sensors collection [GET/light_sensors_states]
@@ -97,13 +101,18 @@ Returns all light sensor state from every house.
 
 ## Is ventilation turn on [GET/houses/{house_id}/vent]
 
-Returns status 204 if ventilation is turn on in bath, 404 - otherwise.
+Returns specific json about ventilation turns on in bath.
 
 + Parameters
     + house_id      (number) - ID of house
 
-+ Response 204
-+ Response 404
++ Response 200
+    + Body
+    
+            {
+                "state_on": false
+            }
+
 
 
 ## Turn on ventilation [PUT/houses/{house_id}/vent]
