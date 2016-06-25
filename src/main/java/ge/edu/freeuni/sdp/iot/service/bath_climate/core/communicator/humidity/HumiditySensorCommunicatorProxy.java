@@ -12,7 +12,7 @@ public class HumiditySensorCommunicatorProxy  implements HumiditySensorCommunica
     }
 
     @Override
-    public HumiditySensorResponse getSensorData(String houseId) {
+    public Humidity getSensorData(String houseId) {
         return this.communicator.getSensorData(houseId);
     }
 }

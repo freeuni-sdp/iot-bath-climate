@@ -2,7 +2,6 @@ package ge.edu.freeuni.sdp.iot.service.bath_climate.core;
 
 import ge.edu.freeuni.sdp.iot.service.bath_climate.core.communicator.humidity.Humidity;
 import ge.edu.freeuni.sdp.iot.service.bath_climate.core.communicator.humidity.HumiditySensorCommunicator;
-import ge.edu.freeuni.sdp.iot.service.bath_climate.core.communicator.humidity.HumiditySensorResponse;
 import ge.edu.freeuni.sdp.iot.service.bath_climate.core.communicator.light.LightSensorCommunicator;
 import java.util.List;
 import java.util.TimerTask;
@@ -24,8 +23,7 @@ public class Worker extends TimerTask {
     @Override
     public void run() {
         boolean lightStatus = lightSensorCommunicator.isLightOn("1"); // for cikli housebistvis
-        HumiditySensorResponse response = humiditySensorCommunicator.getSensorData("1");
-        Humidity hum = response.getHumidity().get(0);
+        Humidity hum = humiditySensorCommunicator.getSensorData("1");
         if (!lightStatus && hum.getHumidity() >= limit){
             
         }
