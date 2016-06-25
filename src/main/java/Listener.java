@@ -5,6 +5,7 @@
 import ge.edu.freeuni.sdp.iot.service.bath_climate.core.Worker;
 import ge.edu.freeuni.sdp.iot.service.bath_climate.core.communicator.humidity.HumiditySensorCommunicatorProxy;
 import ge.edu.freeuni.sdp.iot.service.bath_climate.core.communicator.light.LightSensorCommunicatorProxy;
+import java.util.Timer;
 
 import javax.servlet.ServletContextEvent;
 import javax.servlet.ServletContextListener;
@@ -18,6 +19,8 @@ import javax.servlet.http.HttpSessionBindingEvent;
 public class Listener implements ServletContextListener,
         HttpSessionListener, HttpSessionAttributeListener {
 
+    private Timer timer;
+    
     // Public constructor is required by servlet spec
     public Listener() {
     }
@@ -27,7 +30,9 @@ public class Listener implements ServletContextListener,
     // -------------------------------------------------------
     public void contextInitialized(ServletContextEvent sce) {
         Worker worker = new Worker(new HumiditySensorCommunicatorProxy(),new LightSensorCommunicatorProxy());
-        worker.start();
+        
+        timer = new Timer();
+        timer.schedule(worker, 0, 60000);
 
     }
 

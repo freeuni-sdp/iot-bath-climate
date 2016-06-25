@@ -1,7 +1,6 @@
 package ge.edu.freeuni.sdp.iot.service.bath_climate.core;
 
 import ge.edu.freeuni.sdp.iot.service.bath_climate.core.communicator.light.LightSensorCommunicatorProxy;
-import ge.edu.freeuni.sdp.iot.service.bath_climate.core.communicator.vent.VentSwitchClientProxy;
 
 import javax.ws.rs.Consumes;
 import javax.ws.rs.GET;
@@ -19,10 +18,7 @@ public class BathClimateService {
 
 	@GET
 	public Response ping()  {
-
-		VentSwitchClientProxy ventSwitchClientProxy = new VentSwitchClientProxy();
-		boolean sensorData = ventSwitchClientProxy.getVentStatus("1");
-		ventSwitchClientProxy.setVentStatus("1","off");
+		boolean sensorData = new LightSensorCommunicatorProxy().isLightOn("1");
 		return Response.ok().build();
 	}
 
