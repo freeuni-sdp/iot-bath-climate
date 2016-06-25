@@ -1,13 +1,14 @@
 package ge.edu.freeuni.sdp.iot.service.bath_climate.core.communicator.humidity;
 
+import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 
-/**
- * Created by rezo on 6/25/16.
- */
 @XmlRootElement
 public class Humidity {
+
+    @XmlElement
     private double humidity;
+    @XmlElement
     private String measurement_time;
 
     public Humidity(){}

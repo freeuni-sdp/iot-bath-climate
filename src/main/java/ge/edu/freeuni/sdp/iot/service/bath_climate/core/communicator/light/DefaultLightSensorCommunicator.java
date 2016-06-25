@@ -7,17 +7,17 @@ import javax.ws.rs.core.Response;
 
 public class DefaultLightSensorCommunicator  implements LightSensorCommunicator{
 
-    private String apiUrlPemplate;
+    private String apiUrlTemplate;
 
-    public DefaultLightSensorCommunicator(String apiUrlPemplate){
+    public DefaultLightSensorCommunicator(String apiUrlTemplate){
 
-        this.apiUrlPemplate = apiUrlPemplate;
+        this.apiUrlTemplate = apiUrlTemplate;
     }
     @Override
     public boolean isLightOn(String houseId) {
         Client client = ClientBuilder.newClient();
         Response
-                response = client.target(String.format(this.apiUrlPemplate, houseId))
+                response = client.target(String.format(this.apiUrlTemplate, houseId))
                 .request(MediaType.TEXT_PLAIN_TYPE)
                 .get();
 

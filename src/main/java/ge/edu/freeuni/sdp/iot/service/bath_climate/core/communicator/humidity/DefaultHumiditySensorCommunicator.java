@@ -15,14 +15,16 @@ public class DefaultHumiditySensorCommunicator  implements HumiditySensorCommuni
         this.apiCallTemplate = apiCallTemplate;
     }
     @Override
-    public HumiditySensorResponse getSensorData(String houseId) {
+    public Humidity getSensorData(String houseId) {
         Client client = ClientBuilder.newClient();
-        Response response = client.target(String.format(this.apiCallTemplate, houseId))
+        String path = String.format(this.apiCallTemplate, houseId);
+        Response response = client.target(path)
                 .request(MediaType.TEXT_PLAIN_TYPE)
                 .get();
 
         System.out.println("status: " + response.getStatus());
         System.out.println("headers: " + response.getHeaders());
-        return response.readEntity(HumiditySensorResponse.class);
+        Humidity[] humiditySensorResponses = response.readEntity(Humidity[].class);
+        return humiditySensorResponses[0];
     }
 }

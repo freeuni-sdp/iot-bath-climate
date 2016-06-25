@@ -13,12 +13,14 @@ public class LightSensorResponse {
     @XmlElement
     private String status;
     @XmlElement
-    private String date;
+    private String time;
 
-    public LightSensorResponse(String houseId, String status, String date) {
+    public LightSensorResponse(){}
+
+    public LightSensorResponse(String houseId, String status, String time) {
         this.houseId = houseId;
         this.status = status;
-        this.date = date;
+        this.time = time;
     }
 
     public String getHouseId() {
@@ -37,11 +39,11 @@ public class LightSensorResponse {
         this.status = status;
     }
 
-    public String getDate() {
-        return date;
+    public String getTime() {
+        return time;
     }
 
-    public void setDate(String date) {
-        this.date = date;
+    public void setTime(String time) {
+        this.time = time;
     }
 }
