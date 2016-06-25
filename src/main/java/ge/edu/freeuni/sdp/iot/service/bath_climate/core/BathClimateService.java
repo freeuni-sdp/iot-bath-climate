@@ -12,7 +12,7 @@ public class BathClimateService {
 
 	@GET
 	public Response ping()  {
-		return Response.ok().build();
+                return Response.ok().build();
 	}
 
 
