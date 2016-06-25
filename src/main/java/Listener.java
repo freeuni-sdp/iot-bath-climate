@@ -41,6 +41,7 @@ public class Listener implements ServletContextListener,
          (the Web application) is undeployed or 
          Application Server shuts down.
       */
+      timer.cancel();
     }
 
     // -------------------------------------------------------
