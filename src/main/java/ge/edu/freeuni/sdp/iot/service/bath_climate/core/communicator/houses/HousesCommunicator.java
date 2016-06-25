@@ -5,21 +5,12 @@
  */
 package ge.edu.freeuni.sdp.iot.service.bath_climate.core.communicator.houses;
 
-import java.util.Iterator;
-
 /**
  *
  * @author dato
  */
-public class HousesContainer {
+public interface HousesCommunicator {
+    public static String API_MOCK_TEMPLATE = "";
     
-    private String path;
-    
-    public HousesContainer(String serviceFunctionPath){
-        path = serviceFunctionPath;
-    }
-    
-    public Iterator<HouseRegistryResponse> getHouses(){
-        return null;
-    }
+    public HouseRegistryResponse[] getHouses();
 }

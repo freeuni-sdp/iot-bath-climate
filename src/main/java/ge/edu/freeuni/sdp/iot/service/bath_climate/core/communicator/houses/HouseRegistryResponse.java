@@ -16,41 +16,58 @@ import javax.xml.bind.annotation.XmlRootElement;
 public class HouseRegistryResponse {
     
     @XmlElement
-    private String houseId;
-    @XmlElement
-    private String status;
-    @XmlElement
-    private String time;
+    private Value RowKey;
+    
 
     public HouseRegistryResponse(){}
 
-    public HouseRegistryResponse(String houseId, String status, String time) {
-        this.houseId = houseId;
-        this.status = status;
-        this.time = time;
+    public HouseRegistryResponse(Value newValue) {
+        RowKey = newValue;
     }
 
-    public String getHouseId() {
-        return houseId;
+    public Value getName() {
+        return RowKey;
     }
 
-    public void setHouseId(String houseId) {
-        this.houseId = houseId;
+    public void setName(Value newValue){
+        RowKey = newValue;
     }
-
-    public String getStatus() {
-        return status;
+    
+    public String getHouseID(){
+        return RowKey.get_();
     }
-
-    public void setStatus(String status) {
-        this.status = status;
-    }
-
-    public String getTime() {
-        return time;
-    }
-
-    public void setTime(String time) {
-        this.time = time;
+    
+    
+    @XmlRootElement
+    private class Value {
+        
+        @XmlElement
+        private String $;
+        
+        @XmlElement
+        private String _;
+        
+        public Value(){}
+        
+        public Value(String new$, String new_){
+            $ = new$;
+            _ = new_;
+        }
+        
+        public String get_(){
+            return _;
+        }
+        
+        public void set_(String newValue){
+            _ = newValue;
+        }
+        
+        public String get$(){
+            return $;
+        }
+        
+        public void set$(String new$){
+            $ = new$;
+        }
     }
 }
