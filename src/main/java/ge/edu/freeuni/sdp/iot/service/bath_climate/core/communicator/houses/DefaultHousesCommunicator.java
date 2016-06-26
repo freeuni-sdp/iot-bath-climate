@@ -23,7 +23,7 @@ public class DefaultHousesCommunicator implements HousesCommunicator {
     @Override
     public HouseRegistryResponse[] getHouses(){
         Client client = ClientBuilder.newClient();
-        HouseRegistryResponse[] response = client.target(path)
+        HouseRegistryResponse[] response = client.target(API_MOCK_TEMPLATE + path)
 				.request()
 				.get(HouseRegistryResponse[].class);
         return response;

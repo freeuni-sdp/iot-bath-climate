@@ -22,7 +22,7 @@ public class Worker extends TimerTask {
     private final double limit = 20;
 
     public Worker(HumiditySensorCommunicator humiditySensorCommunicator, LightSensorCommunicator lightSensorCommunicator, VentSwitchClient ventSwitch){
-        houses = new DefaultHousesCommunicator("/houses");
+        houses = new DefaultHousesCommunicator("");
         this.humiditySensorCommunicator = humiditySensorCommunicator;
         this.lightSensorCommunicator = lightSensorCommunicator;
         this.ventSwitch = ventSwitch;

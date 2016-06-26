@@ -24,7 +24,7 @@ public class DefaultHumiditySensorCommunicator  implements HumiditySensorCommuni
 
         System.out.println("status: " + response.getStatus());
         System.out.println("headers: " + response.getHeaders());
-        Humidity[] humiditySensorResponses = response.readEntity(Humidity[].class);
-        return humiditySensorResponses[0];
+        Humidity humiditySensorResponses = response.readEntity(Humidity.class);
+        return humiditySensorResponses;
     }
 }
