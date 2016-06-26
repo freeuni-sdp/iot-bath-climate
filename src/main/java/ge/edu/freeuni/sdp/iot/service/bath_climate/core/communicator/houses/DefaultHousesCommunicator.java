@@ -5,13 +5,8 @@
  */
 package ge.edu.freeuni.sdp.iot.service.bath_climate.core.communicator.houses;
 
-import ge.edu.freeuni.sdp.iot.service.bath_climate.core.communicator.light.LightSensorResponse;
-import java.util.Iterator;
-import java.util.List;
 import javax.ws.rs.client.Client;
 import javax.ws.rs.client.ClientBuilder;
-import javax.ws.rs.core.MediaType;
-import javax.ws.rs.core.Response;
 
 /**
  *

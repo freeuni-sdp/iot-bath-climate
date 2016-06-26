@@ -11,13 +11,15 @@ package ge.edu.freeuni.sdp.iot.service.bath_climate.core.communicator.houses;
  */
 public class HouseRegistryProxy implements HousesCommunicator {
 
+    private final HousesCommunicator housesCommunicator;
+    
     public HouseRegistryProxy(){
-        
+        housesCommunicator = new DefaultHousesCommunicator(API_MOCK_TEMPLATE);
     }
     
     @Override
     public HouseRegistryResponse[] getHouses() {
-        return null;
+        return housesCommunicator.getHouses();
     }
     
 }

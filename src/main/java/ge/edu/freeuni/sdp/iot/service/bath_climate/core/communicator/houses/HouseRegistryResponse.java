@@ -25,11 +25,11 @@ public class HouseRegistryResponse {
         RowKey = newValue;
     }
 
-    public Value getName() {
+    public Value getRowKey() {
         return RowKey;
     }
 
-    public void setName(Value newValue){
+    public void setRowKey(Value newValue){
         RowKey = newValue;
     }
     
