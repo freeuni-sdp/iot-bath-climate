@@ -31,7 +31,6 @@ public class DefaultHousesCommunicator implements HousesCommunicator {
     
     @Override
     public HouseRegistryResponse[] getHouses(){
-        Client client = ClientBuilder.newClient();
         Invocation.Builder request = this.requestFactory.getRequestBuilder(path);
         Response response = this.requestWrapper.invokeGet(request);
         return response.readEntity(HouseRegistryResponse[].class);
