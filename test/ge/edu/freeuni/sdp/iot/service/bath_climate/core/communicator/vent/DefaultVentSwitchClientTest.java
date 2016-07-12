@@ -113,4 +113,19 @@ public class DefaultVentSwitchClientTest {
 
     }
 
+
+    @Test
+    public void testSetVentStatusCallsRequestCreation() throws Exception {
+
+
+        RequestBuilderFactory builderFactory = mock(RequestBuilderFactory.class);
+        RequestWrapper requestWrapper = mock(RequestWrapper.class);
+
+        DefaultVentSwitchClient client = new DefaultVentSwitchClient(requestWrapper,builderFactory,Util.VENT_API_PROD_TEMPLATE_ROOT);
+
+        client.setVentStatus("1","on",10);
+        verify(builderFactory).getRequestBuilder(anyString());
+
+    }
+
 }
