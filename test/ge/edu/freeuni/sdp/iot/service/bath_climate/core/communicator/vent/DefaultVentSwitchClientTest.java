@@ -9,6 +9,8 @@ import ge.edu.freeuni.sdp.iot.service.bath_climate.core.communicator.light.Light
 import org.junit.Test;
 import org.mockito.ArgumentCaptor;
 
+import javax.ws.rs.client.ClientBuilder;
+import javax.ws.rs.client.Entity;
 import javax.ws.rs.client.Invocation;
 import javax.ws.rs.core.Response;
 
@@ -91,6 +93,23 @@ public class DefaultVentSwitchClientTest {
 
         client.getVentStatus("1");
         verify(requestWrapper).invokeGet(any(Invocation.Builder.class));
+
+    }
+
+    @Test
+    public void testSetVentOnCallsRequestWrapper() throws Exception {
+
+
+        RequestBuilderFactory builderFactory = mock(RequestBuilderFactory.class);
+        RequestWrapper requestWrapper = mock(RequestWrapper.class);
+
+        VentSwitchClient client = new DefaultVentSwitchClient(requestWrapper,builderFactory,Util.VENT_API_MOCK_TEMPLATE_ROOT);
+
+        Invocation.Builder request = ClientBuilder.newClient().target(path).request();
+        when(builderFactory.getRequestBuilder(anyString())).thenReturn(request);
+
+        client.setVentStatus("1","on",10);
+        verify(requestWrapper).invokePost(any(Invocation.Builder.class), any(Entity.class));
 
     }
 

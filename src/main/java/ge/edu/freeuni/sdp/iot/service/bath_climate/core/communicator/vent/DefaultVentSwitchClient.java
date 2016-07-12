@@ -34,12 +34,9 @@ public class DefaultVentSwitchClient implements VentSwitchClient {
         String path = String.format(this.apiCallTemplateRoot + template, houseId);
         Invocation.Builder request = this.builderFactory.getRequestBuilder(path);
 
-        Response response = this.requestWrapper.invokePost(request,payload);
+        this.requestWrapper.invokePost(request,payload);
 
-        if (response.getStatus() == 200){
-            VetnSwitchResponse vetnSwitchResponse = response.readEntity(VetnSwitchResponse.class);
-            System.out.println(vetnSwitchResponse.getStatus());
-        }
+
     }
 
     @Override
