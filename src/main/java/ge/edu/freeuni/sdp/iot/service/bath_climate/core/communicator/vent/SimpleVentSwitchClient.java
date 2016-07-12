@@ -1,16 +1,17 @@
 package ge.edu.freeuni.sdp.iot.service.bath_climate.core.communicator.vent;
 
 
-public class VentSwitchClientProxy implements VentSwitchClient {
-    private VentSwitchClient client;
+public class SimpleVentSwitchClient implements VentSwitchClient {
 
-    public VentSwitchClientProxy(){
-        this.client = new DefaultVentSwitchClient(VentSwitchClient.API_MOCK_TEMPLATE_ROOT);
+    private   DefaultVentSwitchClient client ;
+
+    public SimpleVentSwitchClient(){
+        this.client = new DefaultVentSwitchClient(VentSwitchClient.API_PROD_TEMPLATE_ROOT);
     }
 
     @Override
     public void setVentStatus(String houseId, String status, int interval) {
-        this.client.setVentStatus(houseId,status, interval);
+            this.client.setVentStatus(houseId,status, interval);
     }
 
     @Override

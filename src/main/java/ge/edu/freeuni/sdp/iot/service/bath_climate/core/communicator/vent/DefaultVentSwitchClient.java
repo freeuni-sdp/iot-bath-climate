@@ -6,13 +6,11 @@ import javax.ws.rs.client.Entity;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
-/**
- * Created by rezo on 6/25/16.
- */
+
 public class DefaultVentSwitchClient implements VentSwitchClient {
 
     private String apiCallTemplateRoot;
-    private String setTemplate = "%s/action/%s";
+    private String setTemplate = "/houses/%s";
     private String getTemplate = "%s";
 
     public DefaultVentSwitchClient(String apiCallTemplateRoot){
@@ -21,10 +19,10 @@ public class DefaultVentSwitchClient implements VentSwitchClient {
     }
 
     @Override
-    public void setVentStatus(String houseId, String status) {
+    public void setVentStatus(String houseId, String status, int interval) {
         Client client = ClientBuilder.newClient();
-        Entity<String> payload = Entity.text("");
-        Response response = client.target(String.format(this.apiCallTemplateRoot +setTemplate, houseId,status))
+        Entity<String> payload = Entity.json(String.format("{ 'set_status': '%s',  'timeout': %d}", status, interval));
+        Response response = client.target(String.format(this.apiCallTemplateRoot +setTemplate, houseId))
                 .request(MediaType.TEXT_PLAIN_TYPE)
                 .put(payload);
         if (response.getStatus() == 200){

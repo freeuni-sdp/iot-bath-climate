@@ -5,6 +5,7 @@
 import ge.edu.freeuni.sdp.iot.service.bath_climate.core.Worker;
 import ge.edu.freeuni.sdp.iot.service.bath_climate.core.communicator.humidity.HumiditySensorCommunicatorProxy;
 import ge.edu.freeuni.sdp.iot.service.bath_climate.core.communicator.light.LightSensorCommunicatorProxy;
+import ge.edu.freeuni.sdp.iot.service.bath_climate.core.communicator.vent.SimpleVentSwitchClient;
 import ge.edu.freeuni.sdp.iot.service.bath_climate.core.communicator.vent.VentSwitchClientProxy;
 import java.util.Timer;
 
@@ -30,7 +31,7 @@ public class Listener implements ServletContextListener,
     // ServletContextListener implementation
     // -------------------------------------------------------
     public void contextInitialized(ServletContextEvent sce) {
-        Worker worker = new Worker(new HumiditySensorCommunicatorProxy(),new LightSensorCommunicatorProxy(), new VentSwitchClientProxy());
+        Worker worker = new Worker(new HumiditySensorCommunicatorProxy(),new LightSensorCommunicatorProxy(), new SimpleVentSwitchClient());
         
         timer = new Timer();
         timer.schedule(worker, 0, 60000);
