@@ -21,9 +21,9 @@ public class HousesContainer {
         }
     }
     
-    public synchronized HouseRegistryResponse[] getHouses(){
+    public HouseRegistryResponse[] getHouses(){
        synchronized (this.houses){
-           return this.houses;
+           return this.houses.clone();
        }
     }
 }

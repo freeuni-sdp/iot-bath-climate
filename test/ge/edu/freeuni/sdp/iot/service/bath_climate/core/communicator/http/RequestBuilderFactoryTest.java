@@ -18,8 +18,6 @@ import static org.mockito.Mockito.*;
 
 @RunWith(PowerMockRunner.class)
 @PrepareForTest(ClientBuilder.class)
-
-
 public class RequestBuilderFactoryTest {
 
 
