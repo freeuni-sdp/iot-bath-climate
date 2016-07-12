@@ -46,4 +46,8 @@ public class LightSensorResponse {
     public void setTime(String time) {
         this.time = time;
     }
+
+    public boolean isOn(){
+        return this.status.equals("true");
+    }
 }

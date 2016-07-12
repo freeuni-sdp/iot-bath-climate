@@ -5,9 +5,9 @@ import ge.edu.freeuni.sdp.iot.service.bath_climate.core.communicator.houses.Hous
 import ge.edu.freeuni.sdp.iot.service.bath_climate.core.communicator.houses.HousesCommunicator;
 import ge.edu.freeuni.sdp.iot.service.bath_climate.core.communicator.humidity.Humidity;
 import ge.edu.freeuni.sdp.iot.service.bath_climate.core.communicator.humidity.HumiditySensorCommunicator;
-import ge.edu.freeuni.sdp.iot.service.bath_climate.core.communicator.light.LightSensorCommunicator;
+import ge.edu.freeuni.sdp.iot.service.bath_climate.core.communicator.light.LightSensorClient;
 import ge.edu.freeuni.sdp.iot.service.bath_climate.core.communicator.vent.VentSwitchClient;
-import java.util.List;
+
 import java.util.TimerTask;
 
 /**
@@ -16,15 +16,15 @@ import java.util.TimerTask;
 public class Worker extends TimerTask {
 
     private final HumiditySensorCommunicator humiditySensorCommunicator;
-    private final LightSensorCommunicator lightSensorCommunicator;
+    private final LightSensorClient lightSensorClient;
     private final VentSwitchClient ventSwitch;
     private final HousesCommunicator houses;
     private final double limit = 20;
 
-    public Worker(HumiditySensorCommunicator humiditySensorCommunicator, LightSensorCommunicator lightSensorCommunicator, VentSwitchClient ventSwitch){
+    public Worker(HumiditySensorCommunicator humiditySensorCommunicator, LightSensorClient lightSensorClient, VentSwitchClient ventSwitch){
         houses = new DefaultHousesCommunicator("");
         this.humiditySensorCommunicator = humiditySensorCommunicator;
-        this.lightSensorCommunicator = lightSensorCommunicator;
+        this.lightSensorClient = lightSensorClient;
         this.ventSwitch = ventSwitch;
     }
     
@@ -32,11 +32,11 @@ public class Worker extends TimerTask {
     public void run() {
         for (HouseRegistryResponse response : houses.getHouses()) {
             String houseid = response.getHouseID();
-            boolean lightStatusOn = lightSensorCommunicator.isLightOn(houseid);
+            boolean lightStatusOn = lightSensorClient.isLightOn(houseid).isOn();
             Humidity hum = humiditySensorCommunicator.getSensorData(houseid);
             boolean alreadyTurnOn = ventSwitch.getVentStatus(houseid);
             if (!lightStatusOn && hum.getHumidity() >= limit && !alreadyTurnOn){
-                ventSwitch.setVentStatus(houseid, Util.VENT_SWITHCH_ON,Util.VENT_SWITHCH_DEFAULT_TIMEOUT);
+                ventSwitch.setVentStatus(houseid, Util.VENT_SWITCH_ON,Util.VENT_SWITCH_DEFAULT_TIMEOUT);
             }
         }
     }
