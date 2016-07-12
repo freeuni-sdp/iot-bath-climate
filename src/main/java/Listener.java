@@ -3,6 +3,8 @@
  */
 
 import ge.edu.freeuni.sdp.iot.service.bath_climate.core.Worker;
+import ge.edu.freeuni.sdp.iot.service.bath_climate.core.communicator.houses.HouseUpdater;
+import ge.edu.freeuni.sdp.iot.service.bath_climate.core.communicator.houses.HousesContainer;
 import ge.edu.freeuni.sdp.iot.service.bath_climate.core.communicator.humidity.HumiditySensorCommunicatorProxy;
 import ge.edu.freeuni.sdp.iot.service.bath_climate.core.communicator.light.LightSensorClientFactory;
 import ge.edu.freeuni.sdp.iot.service.bath_climate.core.communicator.vent.VentSwitchClientFactory;
@@ -21,7 +23,8 @@ import javax.servlet.http.HttpSessionBindingEvent;
 public class Listener implements ServletContextListener,
         HttpSessionListener, HttpSessionAttributeListener {
 
-    private Timer timer;
+    private Timer timerWorker;
+    private Timer timerUpdater;
     
     // Public constructor is required by servlet spec
     public Listener() {
@@ -31,10 +34,15 @@ public class Listener implements ServletContextListener,
     // ServletContextListener implementation
     // -------------------------------------------------------
     public void contextInitialized(ServletContextEvent sce) {
-        Worker worker = new Worker(new HumiditySensorCommunicatorProxy(),new LightSensorClientFactory().baseClient(), new VentSwitchClientFactory().baseClient());
+        HousesContainer cont = new HousesContainer();
+        HouseUpdater updater = new HouseUpdater(cont);
+        Worker worker = new Worker(cont, new HumiditySensorCommunicatorProxy(),new LightSensorClientFactory().baseClient(), new VentSwitchClientFactory().baseClient());
         
-        timer = new Timer();
-        timer.schedule(worker, 0, 60000);
+        timerUpdater = new Timer();
+        timerUpdater.schedule(updater, 0, 600000);
+        
+        timerWorker = new Timer();
+        timerWorker.schedule(worker, 0, 60000);
 
     }
 
@@ -43,7 +51,7 @@ public class Listener implements ServletContextListener,
          (the Web application) is undeployed or 
          Application Server shuts down.
       */
-      timer.cancel();
+      timerWorker.cancel();
     }
 
     // -------------------------------------------------------
