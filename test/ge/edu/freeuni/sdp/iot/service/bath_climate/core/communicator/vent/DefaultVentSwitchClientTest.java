@@ -127,5 +127,58 @@ public class DefaultVentSwitchClientTest {
         verify(builderFactory).getRequestBuilder(anyString());
 
     }
+    @Test
+    public void testSetVentStatusCreatesCorrectPath() throws Exception {
+
+
+        String path = Util.createVentUrlGet(Util.VENT_API_PROD_TEMPLATE_ROOT,"/%s","1");
+
+        RequestBuilderFactory builderFactory = mock(RequestBuilderFactory.class);
+        RequestWrapper requestWrapper = mock(RequestWrapper.class);
+
+        VentSwitchClient client = new DefaultVentSwitchClient(requestWrapper,builderFactory,Util.VENT_API_PROD_TEMPLATE_ROOT);
+
+
+        Response response = mock(Response.class);
+        when(response.readEntity(Class.class)).thenReturn(VetnSwitchResponse.class);
+
+
+        when(requestWrapper.invokeGet(any(Invocation.Builder.class))).thenReturn(response);
+
+        ArgumentCaptor<String> argument = ArgumentCaptor.forClass(String.class);
+        client.setVentStatus("1","on",10);
+        verify(builderFactory).getRequestBuilder(argument.capture());
+
+        assertEquals(path, argument.getValue());
+
+    }
+
+    @Test
+    public void testSetVentStatusCreatesCorrectBody() throws Exception {
+
+
+
+        RequestBuilderFactory builderFactory = mock(RequestBuilderFactory.class);
+        RequestWrapper requestWrapper = mock(RequestWrapper.class);
+
+        VentSwitchClient client = new DefaultVentSwitchClient(requestWrapper,builderFactory,Util.VENT_API_PROD_TEMPLATE_ROOT);
+
+
+        Response response = mock(Response.class);
+        when(response.readEntity(Class.class)).thenReturn(VetnSwitchResponse.class);
+
+        Entity<String> payload = Entity.json(String.format(Util.VENT_REQUEST_BODY_TEMPLATE, "on", 10));
+
+        when(requestWrapper.invokeGet(any(Invocation.Builder.class))).thenReturn(response);
+
+
+        ArgumentCaptor<Entity> entity = ArgumentCaptor.forClass(Entity.class);
+
+        client.setVentStatus("1","on",10);
+        verify(requestWrapper).invokePost(any(Invocation.Builder.class),entity.capture());
+
+        assertEquals(payload, entity.getValue());
+
+    }
 
 }
