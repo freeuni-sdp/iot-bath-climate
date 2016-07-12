@@ -3,6 +3,8 @@ package ge.edu.freeuni.sdp.iot.service.bath_climate.core;
 import ge.edu.freeuni.sdp.iot.service.bath_climate.core.communicator.houses.DefaultHousesCommunicator;
 import ge.edu.freeuni.sdp.iot.service.bath_climate.core.communicator.houses.HouseRegistryResponse;
 import ge.edu.freeuni.sdp.iot.service.bath_climate.core.communicator.houses.HousesCommunicator;
+import ge.edu.freeuni.sdp.iot.service.bath_climate.core.communicator.http.RequestBuilderFactory;
+import ge.edu.freeuni.sdp.iot.service.bath_climate.core.communicator.http.RequestWrapper;
 import ge.edu.freeuni.sdp.iot.service.bath_climate.core.communicator.humidity.Humidity;
 import ge.edu.freeuni.sdp.iot.service.bath_climate.core.communicator.humidity.HumiditySensorCommunicator;
 import ge.edu.freeuni.sdp.iot.service.bath_climate.core.communicator.light.LightSensorClient;
@@ -22,7 +24,7 @@ public class Worker extends TimerTask {
     private final double limit = 20;
 
     public Worker(HumiditySensorCommunicator humiditySensorCommunicator, LightSensorClient lightSensorClient, VentSwitchClient ventSwitch){
-        houses = new DefaultHousesCommunicator("");
+        houses = new DefaultHousesCommunicator(new RequestWrapper(), new RequestBuilderFactory(), Util.HOUSES_API_PROD_TEMPLATE);
         this.humiditySensorCommunicator = humiditySensorCommunicator;
         this.lightSensorClient = lightSensorClient;
         this.ventSwitch = ventSwitch;
