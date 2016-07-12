@@ -28,16 +28,5 @@ public class DefaultHumiditySensorCommunicator  implements HumiditySensorCommuni
         Invocation.Builder request = this.builderFactory.getRequestBuilder(path);
         Response response = this.requestWrapper.invokeGet(request);
         return response.readEntity(Humidity.class);
-        
-//        Client client = ClientBuilder.newClient();
-//        String path = String.format(this.apiCallTemplate, houseId);
-//        Response response = client.target(path)
-//                .request(MediaType.TEXT_PLAIN_TYPE)
-//                .get();
-//
-//        System.out.println("status: " + response.getStatus());
-//        System.out.println("headers: " + response.getHeaders());
-//        Humidity humiditySensorResponses = response.readEntity(Humidity.class);
-//        return humiditySensorResponses;
     }
 }

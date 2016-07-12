@@ -5,6 +5,9 @@
  */
 package ge.edu.freeuni.sdp.iot.service.bath_climate.core.communicator.houses;
 
+import ge.edu.freeuni.sdp.iot.service.bath_climate.core.communicator.http.RequestBuilderFactory;
+import ge.edu.freeuni.sdp.iot.service.bath_climate.core.communicator.http.RequestWrapper;
+
 /**
  *
  * @author dato
@@ -14,7 +17,9 @@ public class HouseRegistryProxy implements HousesCommunicator {
     private final HousesCommunicator housesCommunicator;
     
     public HouseRegistryProxy(){
-        housesCommunicator = new DefaultHousesCommunicator(API_MOCK_TEMPLATE);
+        housesCommunicator = new DefaultHousesCommunicator(new RequestWrapper(),
+                                                            new RequestBuilderFactory(),
+                                                            API_MOCK_TEMPLATE);
     }
     
     @Override
