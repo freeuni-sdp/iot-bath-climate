@@ -56,7 +56,7 @@ public class DefaultHousesCommunicatorTest {
     @Test 
     public void testHousesSensorDataCallsRequestCreation() throws Exception {
 
-        String path = String.format(Util.HOUSES_API_PROD_TEMPLATE, "1");
+        String path = Util.HOUSES_API_PROD_TEMPLATE;
 
         RequestBuilderFactory builderFactory = mock(RequestBuilderFactory.class);
         RequestWrapper requestWrapper = mock(RequestWrapper.class);
@@ -79,7 +79,7 @@ public class DefaultHousesCommunicatorTest {
     @Test
     public void testHousesCallsRequestWrapper() throws Exception {
 
-        String path = String.format(Util.HOUSES_API_PROD_TEMPLATE, "1");
+        String path = Util.HOUSES_API_PROD_TEMPLATE;
 
         RequestBuilderFactory builderFactory = mock(RequestBuilderFactory.class);
         RequestWrapper requestWrapper = mock(RequestWrapper.class);
