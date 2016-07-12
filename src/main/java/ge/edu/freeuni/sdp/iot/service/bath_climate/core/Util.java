@@ -19,7 +19,5 @@ public class Util {
     public static String createVentUrlGet(String base, String getTemplate, String houseId){
         return String.format( base + getTemplate, houseId);
     }
-    public static String createVentUrlPost(String base, String getTemplate, String houseId){
-        return String.format( base+ getTemplate, houseId);
-    }
+
 }
