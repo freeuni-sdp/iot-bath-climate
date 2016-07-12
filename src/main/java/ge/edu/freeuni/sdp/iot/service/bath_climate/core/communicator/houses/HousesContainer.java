@@ -15,15 +15,11 @@ public class HousesContainer {
     
     public HousesContainer(){}
     
-    public void setHouses(HouseRegistryResponse[] houses){
-        synchronized (this.houses){
-            this.houses = houses;
-        }
+    public synchronized void setHouses(HouseRegistryResponse[] houses){
+        this.houses = houses;
     }
-    
-    public HouseRegistryResponse[] getHouses(){
-       synchronized (this.houses){
-           return this.houses.clone();
-       }
+
+    public synchronized HouseRegistryResponse[] getHouses(){
+        return this.houses.clone();
     }
 }
