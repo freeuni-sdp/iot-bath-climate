@@ -33,8 +33,9 @@ public class VetnSwitchResponse {
         return status;
     }
 
-    public void setStatus(String status) {
+    public VetnSwitchResponse setStatus(String status) {
         this.status = status;
+        return this;
     }
 
     public boolean isSuccessed() {
@@ -43,5 +44,9 @@ public class VetnSwitchResponse {
 
     public void setSuccessed(boolean successed) {
         this.successed = successed;
+    }
+
+    public boolean isOn(){
+        return this.status.equals("on");
     }
 }

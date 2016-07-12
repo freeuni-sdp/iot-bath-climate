@@ -1,30 +1,41 @@
 package ge.edu.freeuni.sdp.iot.service.bath_climate.core.communicator.vent;
 
-import javax.ws.rs.client.Client;
-import javax.ws.rs.client.ClientBuilder;
+import ge.edu.freeuni.sdp.iot.service.bath_climate.core.Util;
+import ge.edu.freeuni.sdp.iot.service.bath_climate.core.communicator.http.RequestBuilderFactory;
+import ge.edu.freeuni.sdp.iot.service.bath_climate.core.communicator.http.RequestWrapper;
+
 import javax.ws.rs.client.Entity;
-import javax.ws.rs.core.MediaType;
+import javax.ws.rs.client.Invocation;
 import javax.ws.rs.core.Response;
 
 
 public class DefaultVentSwitchClient implements VentSwitchClient {
 
+    private String template = "/%s";
+
+
     private String apiCallTemplateRoot;
-    private String setTemplate = "/houses/%s";
-    private String getTemplate = "%s";
 
-    public DefaultVentSwitchClient(String apiCallTemplateRoot){
 
-        this.apiCallTemplateRoot = apiCallTemplateRoot;
+    private RequestWrapper requestWrapper;
+    private RequestBuilderFactory builderFactory;
+
+
+    public DefaultVentSwitchClient(RequestWrapper requestWrapper, RequestBuilderFactory builderFactory, String lightSensorApiUrl) {
+        this.requestWrapper = requestWrapper;
+        this.builderFactory = builderFactory;
+        this.apiCallTemplateRoot = lightSensorApiUrl;
     }
 
     @Override
     public void setVentStatus(String houseId, String status, int interval) {
-        Client client = ClientBuilder.newClient();
-        Entity<String> payload = Entity.json(String.format("{ 'set_status': '%s',  'timeout': %d}", status, interval));
-        Response response = client.target(String.format(this.apiCallTemplateRoot +setTemplate, houseId))
-                .request(MediaType.TEXT_PLAIN_TYPE)
-                .put(payload);
+        Entity<String> payload = Entity.json(String.format(Util.VENT_REQUEST_BODY_TEMPLATE, status, interval));
+
+        String path = String.format(this.apiCallTemplateRoot + template, houseId);
+        Invocation.Builder request = this.builderFactory.getRequestBuilder(path);
+
+        Response response = this.requestWrapper.invokePost(request,payload);
+
         if (response.getStatus() == 200){
             VetnSwitchResponse vetnSwitchResponse = response.readEntity(VetnSwitchResponse.class);
             System.out.println(vetnSwitchResponse.getStatus());
@@ -32,15 +43,15 @@ public class DefaultVentSwitchClient implements VentSwitchClient {
     }
 
     @Override
-    public boolean getVentStatus(String houseId) {
-        Client client = ClientBuilder.newClient();
-        Response response = client.target(String.format(this.apiCallTemplateRoot +getTemplate, houseId))
-                .request(MediaType.TEXT_PLAIN_TYPE)
-                .get();
+    public VetnSwitchResponse getVentStatus(String houseId) {
+
+        String ventUrlGet = Util.createVentUrlGet(this.apiCallTemplateRoot, template, houseId);
+        Invocation.Builder request = this.builderFactory.getRequestBuilder(ventUrlGet);
+
+        Response response = this.requestWrapper.invokeGet(request);
         if (response.getStatus() == 200){
-            VetnSwitchResponse vetnSwitchResponse = response.readEntity(VetnSwitchResponse.class);
-            return vetnSwitchResponse.getStatus().equals("on");
+            return response.readEntity(VetnSwitchResponse.class);
         }
-        return false;
+        return new VetnSwitchResponse().setStatus("off");
     }
 }

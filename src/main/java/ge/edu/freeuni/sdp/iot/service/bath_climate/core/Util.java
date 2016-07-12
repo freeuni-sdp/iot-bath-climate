@@ -8,6 +8,16 @@ public class Util {
     public static final int VENT_SWITCH_DEFAULT_TIMEOUT = 30;
     public static final String LIGHT_SENSOR_API_MOCK_TEMPLATE = "http://private-62396-bathlightsensor.apiary-mock.com/webapi/status/house/%s";
     public static final String LIGHT_SENSOR_API_PROD_TEMPLATE = "http://iot-bath-light-sensor.herokuapp.com/webapi/status/house/%s";
+    public static final String VENT_API_MOCK_TEMPLATE_ROOT = "http://private-caac5-iotbathventswitch.apiary-mock.com/houses";
+
+    public static final String VENT_API_PROD_TEMPLATE_ROOT = "http://iot-bath-vent-switch.herokuapp.com/houses";
+    public static final String VENT_REQUEST_BODY_TEMPLATE = "{'set_status': '%s',  'timeout': %d}";
 
 
+    public static String createVentUrlGet(String base, String getTemplate, String houseId){
+        return String.format( base + getTemplate, houseId);
+    }
+    public static String createVentUrlPost(String base, String getTemplate, String houseId){
+        return String.format( base+ getTemplate, houseId);
+    }
 }
