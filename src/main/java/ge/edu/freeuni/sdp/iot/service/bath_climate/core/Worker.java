@@ -36,7 +36,7 @@ public class Worker extends TimerTask {
             String houseid = response.getHouseID();
             boolean lightStatusOn = lightSensorClient.isLightOn(houseid).isOn();
             Humidity hum = humiditySensorCommunicator.getSensorData(houseid);
-            boolean alreadyTurnOn = ventSwitch.getVentStatus(houseid);
+            boolean alreadyTurnOn = ventSwitch.getVentStatus(houseid).isOn();
             if (!lightStatusOn && hum.getHumidity() >= limit && !alreadyTurnOn){
                 ventSwitch.setVentStatus(houseid, Util.VENT_SWITCH_ON,Util.VENT_SWITCH_DEFAULT_TIMEOUT);
             }
